@@ -5,7 +5,7 @@
 - [Codebase](#codebase)
   
 
-## Introduction
+# Introduction
 
 Demo Quiz App is a tool to help students memorize important information about web development. It was made using JavaScript, HTML, and CSS. Upon starting the quiz, users will be presented with the rules which are as follows.
 
@@ -31,7 +31,7 @@ The quiz consists of a total of five questions. Upon completing the quiz the use
 
 </div>
 
-## Features
+# Features
 
 - Runs in browser
 - Slick GUI interface
@@ -40,7 +40,7 @@ The quiz consists of a total of five questions. Upon completing the quiz the use
 - Score overview
 - Replayable
 
-## Structure
+# Structure
 
 QuizApp is organized within a master folder that contains and index.html file as well as 2 subfolders named js and css.
 - The css folder contains one style sheet named style.css
@@ -91,7 +91,7 @@ quizApp.js also initializes listeners for each of the buttons used in the app. A
 });
 ```
 
-## CodeBase
+# CodeBase
 
 index.html is used to define the structure of the content used in the app. I would like to note elements that belong to the following classes that are key to the functionality of the app.
 - start_btn: Initiates the display of the instructions.
@@ -116,7 +116,7 @@ quizApp.js contains the following variables that control the various quiz operat
   let counterLine;
   let widthValue = 0;
 ```
-### eventListeners
+## eventListeners
 
 quizApp.js contains eventlisteners for the following buttons.
 
@@ -165,9 +165,9 @@ next_btn
   - Calls clearInterval function for both counter and counterLine (stops both timers).
   - Calls showResult function
 
-### Functions
+## Functions
 
-#### quizApp.js contains the following 6 functions; showQuestion(), optionSelected(), showResult(), startTimer(), startTimerLine() and queCounter().
+### quizApp.js contains the following 6 functions; showQuestion(), optionSelected(), showResult(), startTimer(), startTimerLine() and queCounter().
 
 showQuestions(): gets the questions and options from questions.js and creates the necessary HTML code and appends it to the DOM. 
   - Specifically, it stores the HTML required to display the question in a variable called que_tag. note it gets the current question from the questions array using the passed-in index
