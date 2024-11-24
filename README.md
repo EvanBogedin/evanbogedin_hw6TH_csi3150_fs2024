@@ -3,6 +3,7 @@
 - [Features](#features)
 - [Structure](#structure)
 - [Codebase](#codebase)
+  
 
 ## Introduction
 
@@ -41,10 +42,12 @@ The quiz consists of a total of five questions. Upon completing the quiz the use
 
 ## Structure
 
-Within the master folder is the index.html with the CSS and JS files separated into their two respective folders named css and js. The css folder contains one style sheet; style.css and the js folder contains 2 js files; questions.js and quizApp.js. index.html serves as the foundation of the app and has the css as well as both questions.js and quizApp linked to it. 
+Within the master folder is the index.html with the CSS and JS files separated into their two respective folders named css and js. The css folder contains one style sheet; style.css and the js folder contains 2 js files; questions.js and quizApp.js. index.html serves as the foundation of the app and has the css as well as both questions.js and quizApp linked to it. Having both js files linked to index.html allows quizApp.js to access variables stored in question.js
 
-- style.css is used to style every element within the app.
-- questions.js contains each question in the form of a js object stored in an array labeled questions.The following is an example of one question as a js object.
+- style.css is used to style every element within the app. even elements that are not yet present but will be added by quizApp.js. The style.css only has one @import from Google fonts 
+- questions.js contains each question in the form of a js objects stored in an array labeled questions, which will be accessed by quizApp to dynamically present the user with questions.
+
+The following is an example of one question as a js object.
 ```js
   {
     numb: 1,
@@ -59,7 +62,7 @@ Within the master folder is the index.html with the CSS and JS files separated i
 ```
 - quizApp.js contains all the logic for the app.
 
-quizApp.js contains the following references to the DOM elements from index.html.
+quizApp.js contains the following references to the DOM elements from index.html, allowing for dynamic updating of the HTML page. Having a reference to an element allows for the manipulation of the elements' attributes as well as allows for the insertion of new html within an elment tag using javascript.
 ```js
   const start_btn = document.querySelector(".start_btn button");
   const info_box = document.querySelector(".info_box");
@@ -77,7 +80,7 @@ quizApp.js contains the following references to the DOM elements from index.html
   const bottom_ques_counter = document.querySelector("footer .total_que");
 ```
 
-quizApp.js also initializes listeners for each of the buttons used in the app. An example of one listener is as follows.
+quizApp.js also initializes listeners for each of the buttons used in the app. An example of one listener being initialized is as follows.
 
 ```js
   start_btn.addEventListener("click", (e) => {
@@ -85,7 +88,10 @@ quizApp.js also initializes listeners for each of the buttons used in the app. A
 });
 ```
 
-quizApp.js contains the following variables that control quiz operations such as how long the user has to answer a question and the user score.
+## CodeBase
+
+
+quizApp.js contains the following variables that control the various quiz operations such as how long the user has to answer a question and the user score as well as que_count to keep track of which question the user is on.
 
 ```js
   let timeValue = 15;
@@ -97,4 +103,72 @@ quizApp.js contains the following variables that control quiz operations such as
   let widthValue = 0;
 ```
 
-quizApp.js contains the following 6 functions; showQuestion(), optionSelected(), showResult(), startTimer(), startTimerLine() and queCounter.
+quizApp.js contains the following 6 functions; showQuestion(), optionSelected(), showResult(), startTimer(), startTimerLine() and queCounter().
+
+-showQuestions(): gets the questions and options from questions.js and creates the necessary HTML code and appends it to the DOM. Specifically, it stores the HTML required to display the question in a variable called que_tag. Similarly it it stores the HTML required to display the answer options in a variable called option_list. It then uses the following code to insert the newly created HTML code into the DOM.
+
+```js
+  que_text.innerHTML = que_tag; //adding new (child) span tag inside que_tag
+  option_list.innerHTML = option_tag; //adding new (child) div tag inside option_tag
+
+```
+
+Finally, it uses the following code to set onclick attribute to all available options. Now when the user clicks on an option it will run optionSelected()
+
+```js
+    const option = option_list.querySelectorAll(".option");
+
+  // set onclick attribute to all available options
+  for (i = 0; i < option.length; i++) {
+    option[i].setAttribute("onclick", "optionSelected(this)");
+  }
+}
+```
+
+-optionSelected(): used to handle when the user selects one of the available options. It checks if the selected option is the correct answer and stops the timer. If the user choice is correct it increase userScore by 1 and then adds the selected option to the option correct class. If the user choice is incorrect it adds the selected option to the incorrect class, it also finds the option with the correct answer and adds it to the option correct class. with the options added to the appropriate classes the css specified in style.css will now style the options so they indicate the correctness of the user's choice by highlighting them either green or red. Finally, it makes the .next_btn element visible.
+
+-showResults(): Creates the necessary HTML for the result box, and hides the info and quiz boxes as well as displays the user's score with a corresponding message. 3 messages can be displayed, depending on the score of the user. The HTML string is stored in a variable named scoreTag and inserted into a div that is a member of the scoreText class.
+
+-startTimer(): Controls the timer. After creating a timer it essentially does three things; it inserts the amount of time left into the .timer_sec element, it pads the displayed time with a 0 if the time left is less than 9, and finally, when the time runs out it prevents the user from selecting an option. Also, when the time runs out it will find the option with the correct answer and add it to the correct option class so that it gets highlighted green and makes the .next_btn element visible.
+
+-startTimerLine(): Shows a progress bar to visually indicate how much time has passed. It simply creates a timer and increments the width of the .time_line element by 1px every second using the following code, which takes the current time and concatinats "px" to the end of it. 
+```js
+  time_line.style.width = time + "px"; //increasing width of time_line with px by time value
+```
+
+Finally, once the time exceeds 549 it stops the timer.
+
+-queCounter(): Constructs the necessary HTML to display the current question number at the bottom left of the quiz box. It takes the current question number as an argument but gets the total number of questions by getting the length of the questions array which in this case is 5. It stores the string of HTML code in a variable named totalQueCountage in the following code.
+
+```js
+  let totalQueCounTag =
+    "<span><p>" +
+    index +
+    "</p> of <p>" +
+    questions.length +
+    "</p> Questions</span>";
+```
+Then it inserts the HTML into the .bottom_ques_counter element.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
