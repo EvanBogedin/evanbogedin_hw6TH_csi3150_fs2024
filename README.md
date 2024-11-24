@@ -4,7 +4,6 @@
 - [Structure](#structure)
 - [Codebase](#codebase)
   
-
 # Introduction
 
 Demo Quiz App is a tool to help students memorize important information about web development. It was made using JavaScript, HTML, and CSS. Upon starting the quiz, users will be presented with the rules which are as follows.
@@ -47,7 +46,7 @@ QuizApp is organized within a master folder that contains and index.html file as
 - The js folder contains questions.js and quizApp.js
 
 - The index.html serves as the foundation of the app. It has links to the style.css as well as to both the js files. Having both js files linked in the index.html allows for quizApp.js to access variables that are within questions.js
-- style.css is used to style every element within the app. even elements that are not yet present but will be added dynamically. Note: style.css imports a font from fontawesome 
+- style.css is used to style every element within the app. even elements that are not yet present but will be added dynamically. Note: style.css imports a font from Google Fonts. 
 - questions.js contains each question in the form of a js object stored in an array labeled questions, which will be accessed by quizApp to dynamically present the user with questions.
 
 The following is an example of one question as a js object.
@@ -101,9 +100,11 @@ index.html is used to define the structure of the content used in the app. I wou
 - total_que: Here is where the question count will be displayed and updated.
 - result_box: This is where the results will be displayed after completion of the quiz.
 
-style.css is used to style the page, the following classes initially have no elements assigned to them. They will have elements assigned to them dynamically by Java script and are used to indicate the correctness of user choices.
+style.css is used to style the various elements contained in the page. Mainly modifying attributes such as background color, padding, color, and border radius to create the app's sleek look. there is extensive use of the flex property to organize the content. absolute positioning is also used to position the elements that belong to the following classes .start_btn, .info_box, .quiz_box, and .result_box 
+
+Initially, no elements were assigned to the following classes. They will have elements assigned to them dynamically by Java script and are used to indicate the correctness of user choices.
 - correct: The styling for this class makes everything a shade of green.
-- incorrect: The styling for this class makes everything a shade of pink
+- incorrect: The styling for this class makes everything a shade of red
 
 quizApp.js contains the following variables that control the various quiz operations such as how long the user has to answer a question and the user score as well as que_count to keep track of which question the user is on.
 
@@ -116,58 +117,10 @@ quizApp.js contains the following variables that control the various quiz operat
   let counterLine;
   let widthValue = 0;
 ```
-## eventListeners
 
-quizApp.js contains eventlisteners for the following buttons.
+### Functions
 
-start_btn
-  - shows info box.
-
-exit_btn:
-  - hides info box.
-
-continue_btn
-  - Hides info box.
-  - Shows quiz box.
-  - Calls showQestions function.
-  - Calls queCounter function passing a 1 in as a parameter.
-  - Calls startTimer function, passing in a 15.
-  - Calls startTimerLine function.
-
-restart_quiz
-  - Shows quiz box.
-  - Hides result box.
-  - Resets timeValue, que_count, que_numb, userScore, and widthValue to their initial values.
-  - Calls showQuestions function.
-  - Calls queCounter function.
-  - Calls clearInterval function for both counter and counterLine (stops both timers).
-  - Calls starTimer and StartTimerLine functions
-  - Changes the text of timeText to "Time Left"
-  - Hides the next button
-
-quit_quiz
-  - Reloads the current window
-
-next_btn
-
-  If it does not exceed max questions
-    
-  - Increment the que_count value
-  - Increment the que_numb value
-  - Calls showQestions function
-  - Calls queCounter function
-  - Calls clearInterval function for both counter and counterLine (stops both timers).
-  - Calls startTimer and startTimerLine functions
-  - Changes the timeText to Time Left
-  - hide the next button
-
-  Else
-  - Calls clearInterval function for both counter and counterLine (stops both timers).
-  - Calls showResult function
-
-## Functions
-
-### quizApp.js contains the following 6 functions; showQuestion(), optionSelected(), showResult(), startTimer(), startTimerLine() and queCounter().
+quizApp.js contains the following 6 functions; showQuestion(), optionSelected(), showResult(), startTimer(), startTimerLine() and queCounter(). Their functionality is overviewed in the following list.
 
 showQuestions(): gets the questions and options from questions.js and creates the necessary HTML code and appends it to the DOM. 
   - Specifically, it stores the HTML required to display the question in a variable called que_tag. note it gets the current question from the questions array using the passed-in index
@@ -180,7 +133,7 @@ showQuestions(): gets the questions and options from questions.js and creates th
 
 ```
 
-- Finally, it uses the following code to set onclick attribute to all newly created html elements assigned to the options class. Now when the user clicks on an option it will run optionSelected()
+- Finally, it uses the following code to set onclick attribute to all newly created html elements assigned to the options class. Now when the user clicks on an option it will run optionSelected().
 
 ```js
     const option = option_list.querySelectorAll(".option");
@@ -239,24 +192,53 @@ queCounter(): Constructs the necessary HTML to display the current question numb
 ```
 - Then it inserts the HTML into the .bottom_ques_counter element.
 
+### eventListeners
 
+quizApp.js contains many eventListers that trigger various functions. the following is a list of all the buttons with eventListeners along with the functionality that will be executed when they trigger.
 
+start_btn
+  - shows info box.
 
+exit_btn:
+  - hides info box.
 
+continue_btn
+  - Hides info box.
+  - Shows quiz box.
+  - Calls showQestions function.
+  - Calls queCounter function.
+  - Calls startTimer and startTimerLine functions.
 
+restart_quiz
+  - Shows quiz box and hides result box.
+  - Resets timeValue, que_count, que_numb, userScore, and widthValue to their initial values.
+  - Calls showQuestions function.
+  - Calls queCounter function.
+  - Calls clearInterval function for both counter and counterLine (stops both timers).
+  - Calls starTimer and StartTimerLine functions
+  - Changes the text of timeText to "Time Left"
+  - Hides the next button
 
+quit_quiz
+  - Reloads the current window
 
+next_btn
 
+  If it does not exceed max questions
+  
+  - Increment the que_count value
+  - Increment the que_numb value
+  - Calls showQestions function
+  - Calls queCounter function
+  - Calls clearInterval function for both counter and counterLine (stops both timers).
+  - Calls startTimer and startTimerLine functions
+  - Changes the timeText to Time Left
+  - hide the next button
 
-
-
-
-
-
-
-
-
-
+  Else
+  
+  - Calls clearInterval function for both counter and counterLine (stops both timers).
+  - Calls showResult function
 
 
 
