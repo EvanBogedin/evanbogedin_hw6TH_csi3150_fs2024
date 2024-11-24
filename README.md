@@ -196,20 +196,20 @@ queCounter(): Constructs the necessary HTML to display the current question numb
 
 quizApp.js contains many eventListers that trigger various functions. the following is a list of all the buttons with eventListeners along with the functionality that will be executed when they trigger.
 
-start_btn
+#### start_btn
   - shows info box.
 
-exit_btn:
+#### exit_btn:
   - hides info box.
 
-continue_btn
+#### continue_btn
   - Hides info box.
   - Shows quiz box.
   - Calls showQestions function.
   - Calls queCounter function.
   - Calls startTimer and startTimerLine functions.
 
-restart_quiz
+#### restart_quiz
   - Shows quiz box and hides result box.
   - Resets timeValue, que_count, que_numb, userScore, and widthValue to their initial values.
   - Calls showQuestions function.
@@ -219,10 +219,10 @@ restart_quiz
   - Changes the text of timeText to "Time Left"
   - Hides the next button
 
-quit_quiz
+#### quit_quiz
   - Reloads the current window
 
-next_btn
+#### next_btn
 
   If it does not exceed max questions
   
